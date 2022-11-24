@@ -17,6 +17,10 @@ def download(url, directory):
     resp = requests.get(url)
     file_name = make_filename(url)
     full_file_path = os.path.join(directory, file_name)
+
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+
     with open(full_file_path, 'w+') as f:
         f.write(resp.text)
     return full_file_path
