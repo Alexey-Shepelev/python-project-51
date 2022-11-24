@@ -5,7 +5,7 @@ import os
 def parse_args():
     parser = argparse.ArgumentParser(
         description='Downloading the page from internet and place it into the\
-        shown directory (into working directory by default)'
+        specified directory (into working directory by default)'
     )
     parser.add_argument('-o', '--output',
                         default=os.getcwd(),

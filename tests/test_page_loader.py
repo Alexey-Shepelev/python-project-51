@@ -26,6 +26,7 @@ cases = [
     ('https://test.site.com/testpage.test', 'test-site-com-testpage-test.html')
 ]
 
+
 def read_file(file):
     with open(file) as f:
         return f.read()
