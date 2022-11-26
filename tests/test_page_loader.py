@@ -23,7 +23,7 @@ TEXT = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' \
 cases = [
     ('https://test.site.com/testpage', 'test-site-com-testpage.html'),
     ('https://test.site.com/testpage.html', 'test-site-com-testpage.html'),
-    ('https://test.site.com/testpage.test', 'test-site-com-testpage-test.html')
+    ('https://test.site.com/testpage/test1', 'test-site-com-testpage-test1.html')
 ]
 
 

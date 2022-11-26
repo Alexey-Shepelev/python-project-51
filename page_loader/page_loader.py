@@ -4,13 +4,19 @@ import os.path
 import re
 
 
-def make_filename(url):
-    ext = '.html'
-    url = url if os.path.splitext(url)[1] != ext else os.path.splitext(url)[0]
+def covert_url_to_name(url):
+    # url = url if os.path.splitext(url)[1] != '.html' \
+    #     else os.path.splitext(url)[0]
     parsed_url = urlparse(url)
-    name = '-'.join(
-        re.split(r'[^a-zA-Z0-9]', parsed_url.netloc + parsed_url.path))
-    return name + '.html'
+    netloc = parsed_url.netloc
+    path = os.path.splitext(parsed_url.path)[0]
+    name = re.sub(r'\W', '-', netloc + path)
+    return name
+
+
+def make_filename(url, ext='html'):
+    name = covert_url_to_name(url)
+    return name + '.' + ext
 
 
 def download(url, directory):
