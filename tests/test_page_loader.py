@@ -6,20 +6,6 @@ import tempfile
 import os
 
 
-# TEXT = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' \
-#        'eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna nec ' \
-#        'tincidunt praesent semper feugiat. Lorem ipsum dolor sit amet. ' \
-#        'Pellentesque habitant morbi tristique senectus et netus. Est ' \
-#        'pellentesque elit ullamcorper dignissim cras tincidunt. Massa eget ' \
-#        'egestas purus viverra accumsan in nisl nisi scelerisque. Amet ' \
-#        'consectetur adipiscing elit ut aliquam purus sit amet. Dui nunc ' \
-#        'mattis enim ut tellus elementum sagittis vitae. In fermentum posuere ' \
-#        'urna nec tincidunt praesent. A condimentum vitae sapien pellentesque ' \
-#        'habitant morbi. In fermentum posuere urna nec tincidunt praesent ' \
-#        'semper. Nulla malesuada pellentesque elit eget gravida. In arcu ' \
-#        'cursus euismod quis viverra nibh. '
-
-
 cases = [
     ('https://page-loader.hexlet.repl.co', 'page-loader-hexlet-repl-co.html', '.html'),
     ('https://test.site.com/test.html', 'test-site-com-test.html', '.html'),

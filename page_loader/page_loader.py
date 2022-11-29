@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 
 def covert_url_to_name(url):
+    """Convert URL to kebab-case name"""
     parsed_url = urlparse(url)
     netloc = parsed_url.netloc
     path = os.path.splitext(parsed_url.path)[0]
@@ -14,12 +15,14 @@ def covert_url_to_name(url):
 
 
 def make_name(url, ext):
+    """Making file name by means of
+    adding extension"""
     name = covert_url_to_name(url)
     return name + ext
 
 
-def download_bin_files(data, path_, dir_, url, tag, attr):
-    # tag_list = data.find_all(tag)
+def download_files(data, path_, dir_, url, tag, attr):
+    """Downloads files from html page using teg's local links"""
     netloc = urlparse(url).netloc
     for tag_ in data.find_all(tag):
         link = tag_[attr]
@@ -40,13 +43,13 @@ def download_bin_files(data, path_, dir_, url, tag, attr):
 
 
 def download(url, directory=os.getcwd()):
+    """Downloads page from web to local folder"""
     resp = requests.get(url).text
     dir_name = make_name(url, '_files')
     dir_path = os.path.join(directory, dir_name)
     html_file_name = make_name(url, '.html')
     html_file_path = os.path.join(directory, html_file_name)
 
-    # if not os.path.exists(dir_path):
     os.makedirs(dir_path, exist_ok=True)
 
     soup = BeautifulSoup(resp, 'html.parser')
@@ -56,7 +59,7 @@ def download(url, directory=os.getcwd()):
         'script': 'src',
     }
     for tag, attr in tags.items():
-        download_bin_files(soup, dir_path, dir_name, url, tag, attr)
+        download_files(soup, dir_path, dir_name, url, tag, attr)
 
     with open(html_file_path, 'w+') as f:
         f.write(soup.prettify())
