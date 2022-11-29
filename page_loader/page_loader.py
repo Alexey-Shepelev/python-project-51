@@ -47,7 +47,13 @@ def download(url, directory=os.getcwd()):
     os.makedirs(dir_path, exist_ok=True)
 
     soup = BeautifulSoup(resp, 'html.parser')
-    download_bin_files(soup, dir_path, dir_name, url, 'img', 'src')
+    tags = {
+        'img': 'src',
+        'link': 'href',
+        'script': 'src',
+    }
+    for tag, attr in tags.items():
+        download_bin_files(soup, dir_path, dir_name, url, tag, attr)
 
     with open(html_file_path, 'w+') as f:
         f.write(soup.prettify())
