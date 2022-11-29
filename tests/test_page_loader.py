@@ -21,7 +21,7 @@ import os
 
 
 cases = [
-    ('https://test.site.com/testpage', 'test-site-com-testpage.html', '.html'),
+    ('https://page-loader.hexlet.repl.co', 'page-loader-hexlet-repl-co.html', '.html'),
     ('https://test.site.com/test.html', 'test-site-com-test.html', '.html'),
     ('https://test.site.com/testpage', 'test-site-com-testpage_files', '_files')
 ]
@@ -45,14 +45,25 @@ def read_bin(file):
 def test_download():
     html_initial = read('tests/fixtures/initial.html')
     html_expected = read('tests/fixtures/expected.html')
-    img_initial = read_bin('tests/fixtures/python.png')
+    img_initial = read_bin('tests/fixtures/nodejs.png')
+    script_initial = read_bin('tests/fixtures/script.js')
+    css_initial = read_bin('tests/fixtures/application.css')
+
     with tempfile.TemporaryDirectory() as tmp:
         with requests_mock.Mocker() as m:
             url = cases[0][0]
             filename = cases[0][1]
-            img_url = 'https://test.site.com/professions/python.png'
+
+            img_url = url + '/assets/professions/nodejs.png'
+            script_url = url + '/script.js'
+            css_url = url + '/assets/application.css'
+            link_url = url + '/courses'
+
             m.get(url, text=html_initial)
             m.get(img_url, content=img_initial)
+            m.get(script_url, content=script_initial)
+            m.get(css_url, content=css_initial)
+            m.get(link_url, text=html_initial)
             download(url, tmp)
 
             html = read(os.path.join(tmp, filename))
@@ -60,8 +71,18 @@ def test_download():
 
             img = read_bin(os.path.join(
                 tmp,
-                "test-site-com-testpage_files/test-site-com-professions"
-                "-python.png"))
+                'page-loader-hexlet-repl-co_files'
+                '/page-loader-hexlet-repl-co-assets-professions-nodejs.png'))
             assert img == img_initial
 
+            script = read_bin(os.path.join(
+                tmp,
+                'page-loader-hexlet-repl-co_files'
+                '/page-loader-hexlet-repl-co-script.js'))
+            assert script == script_initial
 
+            css = read_bin(os.path.join(
+                tmp,
+                'page-loader-hexlet-repl-co_files'
+                '/page-loader-hexlet-repl-co-assets-application.css'))
+            assert css == css_initial

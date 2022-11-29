@@ -21,16 +21,19 @@ def make_name(url, ext):
 def download_bin_files(data, path_, dir_, url, tag, attr):
     # tag_list = data.find_all(tag)
     netloc = urlparse(url).netloc
-    for tag in data.find_all(tag):
-        link = tag[attr]
+    for tag_ in data.find_all(tag):
+        link = tag_[attr]
         link_netloc = urlparse(link).netloc
         if not link_netloc or netloc == link_netloc:
             if not link_netloc:
                 link = urljoin(url, link)
-            converted_link = make_name(covert_url_to_name(link),
-                                       os.path.splitext(link)[1])
+            if tag == 'link' and os.path.splitext(link)[1] == '':
+                converted_link = make_name(covert_url_to_name(link), '.html')
+            else:
+                converted_link = make_name(covert_url_to_name(link),
+                                           os.path.splitext(link)[1])
             local_path = os.path.join(path_, converted_link)
-            tag[attr] = os.path.join(dir_, converted_link)
+            tag_[attr] = os.path.join(dir_, converted_link)
             resp = requests.get(link).content
             with open(local_path, 'wb+') as f:
                 f.write(resp)
